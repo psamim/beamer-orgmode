@@ -1,0 +1,65 @@
+#+TITLE: Sample Slides
+#+AUTHOR: Samim Pezeshki
+#+DATE:     January  2015
+#+DESCRIPTION: Risk Management in Financial Institutions
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:nil
+# #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+# #+LaTeX_CLASS_OPTIONS: [presentation,smaller]
+#+BEAMER_THEME: [progressbar=frametitle,sectionpage=progressbar,background=light]{metropolis}
+# #+BEAMER_COLOR_THEME: [accent=orange]{solarized}
+
+
+* Sample Section
+** Sample Slide
+- /Data Source/: 
+  Database of a local financial institution whose name will not be revealed because of security issues
+- /Goal/: 
+  Risk Management in lending to customers
+- /Institution Needs/: 
+  Detecting if a customer is loyal or disloyal to decide about lending to him or not and also decide about maximum amount of lending with minimum risk of refund
+- /Target Question/: 
+  Given some demographic  parameters such as age, sex, job, education, income rate, marital status, … , is a customer loyal for lending? If yes, what is the maximum amount of lending for him?
+** Two Column Slide
+***                                                               :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+- The most dependency for maxloan amount is on education.
+- The least dependency is on acc type
+- Marital Status has no affect on prediction of max_loan
+
+***                                                               :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+#+ATTR_LATEX: width=\textwidth
+
+#+BEGIN_SRC R
+summary(GBM_model)
+
+                        var   rel.inf
+education         education 34.962469
+age                     age 28.642135
+job                     job 15.714282
+sex                     sex 14.206087
+acc_type           acc_type  6.475026
+maritalstatus maritalstatus  0.000000
+#+END_SRC
+** Slide with code
+To
+determine the number of clusters. We can use a plot
+of the within groups sum of squares 
+by number of clusters extracted.
+
+\vspace{5mm}
+
+#+BEGIN_SRC R
+wss <- (nrow(mydata)-1)*sum(apply(mydata,2,var))
+for (i in 2:15) wss[i] <- sum(kmeans(mydata,
+   centers=i)$withinss)
+plot(1:15, wss, type="b", xlab="Number of Clusters",
+  ylab="Within groups sum of squares") 
+#+END_SRC
